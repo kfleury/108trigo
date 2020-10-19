@@ -1,0 +1,66 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2020
+## main
+## File description:
+## main
+##
+
+import sys
+from math import *
+
+import error
+import math_function
+import matrice
+
+
+def matrice_arg():
+    i = len(sys.argv) - 2
+    length = sqrt(i)
+    is_int = int(length)
+    if length == is_int:
+        return length
+    else:
+        print("Not enough parameters to create a matrix")
+        sys.exit(84)
+
+
+def create_matrice_with_arg(length):
+    tab = []
+    count = 1
+    for i in range(int(length)):
+        tab.append([])
+        for j in range(int(length)):
+            count = count + 1
+            tab[i].append(sys.argv[count])
+    return tab
+
+
+def get_function(tab):
+    if sys.argv[1] == "EXP":
+        tab = math_function.exp_function(tab)
+    if sys.argv[1] == "COS":
+        tab = math_function.cos_function(tab)
+    if sys.argv[1] == "SIN":
+        tab = math_function.sin_function(tab)
+    if sys.argv[1] == "COSH":
+        tab = math_function.cosh_function(tab)
+    if sys.argv[1] == "SINH":
+        tab = math_function.sinh_function(tab)
+    return tab
+
+
+def main():
+    tab = []
+    if "-h" in sys.argv or "--help" in sys.argv:
+        error.usage()
+        return 0
+    error.parameter()
+    length = matrice_arg()
+    tab = create_matrice_with_arg(length)
+    tab = get_function(tab)
+    matrice.display_matrice(tab)
+
+
+if __name__ == "__main__":
+    main()
